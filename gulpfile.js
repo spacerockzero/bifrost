@@ -3,23 +3,51 @@ console.log('inside stack-level build file');
 
 /* do stack things */
 
-// Build Assembly Bundles
-// Process Static Assets
-// Serve Assets
-// Upload Assets
 
 var gulp = require('gulp');
 var path = require('path');
-var rootDir = process.cwd();
+var ROOTDIR = process.cwd();
+var $ = require('gulp-load-plugins')();
+var uglify = require('uglifyjs');
 
-var paths = {
-  root: rootDir,
-  assets: path.join(rootDir, 'assets'),
-  js: path.join(paths.assets, 'js'),
-  css: path.join(paths.assets, 'css'),
-  img: path.join(paths.assets, 'img')
+/* global asset paths */
+var ASSETDIR = path.join(ROOTDIR, 'assets');
+var PATHS = {
+  ROOT: ROOTDIR,                                           // app root dir
+  ASSETS: ASSETDIR,                                        // assets root dir
+  JS: path.join(ASSETDIR, 'js'),                           // js and assemblies dir
+  CSS: path.join(ASSETDIR, 'css'),                         // css, styl, and less files (not used in modules or components)
+  IMG: path.join(ASSETDIR, 'img'),                         // image files (svg, jpg, png, gif, webp)
+  WEBCOMPONENTS: path.join(ASSETDIR, 'webcomponents'),     // webcomponent dirs, ready to be optimized
+  FONTS: path.join(ASSETDIR, 'fonts'),                     // webfonts
+  DIST: path.join(ASSETDIR, 'dist')                        // dist dir where optimized files go to be served
 };
 
+console.log('ROOTDIR',ROOTDIR);
+// Build Assembly Bundles
+// Process Static Assets
+
+gulp.task('js', function() {
+  return gulp.src(PATHS.JS + '/**/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest(PATHS.DIST))
+});
+gulp.task('css', function() {
+
+});
+gulp.task('img', function() {
+
+});
+gulp.task('webcomponents', function() {
+
+});
+gulp.task('fonts', function() {
+
+});
+
+
+// Serve Assets (middleware)
+// Upload Assets 
 
 
 
@@ -47,3 +75,16 @@ catch(e){
 if(appBuild){
   console.log('importing: ' + appBuild.message);
 }
+
+
+
+
+
+
+
+
+/* Gulp Default Task */
+gulp.task('default', ['js'], function(cb) {
+
+});
+
