@@ -4,11 +4,11 @@ console.log('inside stack-level build file');
 /* do stack things */
 
 
-var gulp = require('gulp');
+var stackGulp = require('gulp');
 var path = require('path');
 var ROOTDIR = process.cwd();
 var $ = require('gulp-load-plugins')();
-var uglify = require('uglifyjs');
+var uglify = require('gulp-uglifyjs');
 
 /* global asset paths */
 var ASSETDIR = path.join(ROOTDIR, 'assets');
@@ -26,22 +26,22 @@ var PATHS = {
 console.log('ROOTDIR',ROOTDIR);
 // Build Assembly Bundles
 // Process Static Assets
-
-gulp.task('js', function() {
-  return gulp.src(PATHS.JS + '/**/*.js')
+console.log('JS dir: ', PATHS.JS + '/**/*.js')
+stackGulp.task('js', function() {
+  return stackGulp.src(PATHS.JS + '/**/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest(PATHS.DIST))
+    .pipe(stackGulp.dest(PATHS.DIST))
 });
-gulp.task('css', function() {
+stackGulp.task('css', function() {
 
 });
-gulp.task('img', function() {
+stackGulp.task('img', function() {
 
 });
-gulp.task('webcomponents', function() {
+stackGulp.task('webcomponents', function() {
 
 });
-gulp.task('fonts', function() {
+stackGulp.task('fonts', function() {
 
 });
 
@@ -62,29 +62,33 @@ gulp.task('fonts', function() {
 
 
 
-// Import app-level buildfile if exists
-var appBuild = false; 
-try {
-  appBuild = require( process.cwd() + '/build.js' );
-}
-catch(e){
-  console.log('app-level build file not imported: ' + e)
-}
+// // Import app-level buildfile if exists
+// var appBuild = false; 
+// try {
+//   appBuild = require( process.cwd() + '/build.js' );
+// }
+// catch(e){
+//   console.log('app-level build file not imported: ' + e)
+// }
 
-/* Run app-level build scripts */
-if(appBuild){
-  console.log('importing: ' + appBuild.message);
-}
+// /* Run app-level build scripts */
+// if(appBuild){
+//   console.log('importing: ' + appBuild.message);
+// }
 
-
-
-
-
-
-
-
-/* Gulp Default Task */
-gulp.task('default', ['js'], function(cb) {
+/* stackGulp Default Task */
+stackGulp.task('stack-default', ['js'], function(cb) {
 
 });
+
+
+module.exports = {
+  gulp: stackGulp
+}
+
+
+
+
+
+
 
