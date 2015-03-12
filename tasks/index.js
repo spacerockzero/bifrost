@@ -2,9 +2,9 @@
 console.log('inside stack-level build file');
 
 /* do stack things */
+var tasks = {};
 
-
-var stackGulp = require('gulp');
+var gulp = require('gulp');
 var path = require('path');
 var ROOTDIR = process.cwd();
 var $ = require('gulp-load-plugins')();
@@ -25,25 +25,26 @@ var PATHS = {
 
 console.log('ROOTDIR',ROOTDIR);
 // Build Assembly Bundles
+
 // Process Static Assets
 console.log('JS dir: ', PATHS.JS + '/**/*.js')
-stackGulp.task('js', function() {
-  return stackGulp.src(PATHS.JS + '/**/*.js')
-    .pipe(uglify())
-    .pipe(stackGulp.dest(PATHS.DIST))
+gulp.task('js', function() {
+  // return gulp.src(PATHS.JS + '/**/*.js')
+  //   .pipe(uglify())
+  //   .pipe(gulp.dest(PATHS.DIST))
 });
-stackGulp.task('css', function() {
+// gulp.task('css', function() {
 
-});
-stackGulp.task('img', function() {
+// });
+// gulp.task('img', function() {
 
-});
-stackGulp.task('webcomponents', function() {
+// });
+// gulp.task('webcomponents', function() {
 
-});
-stackGulp.task('fonts', function() {
+// });
+// gulp.task('fonts', function() {
 
-});
+// });
 
 
 // Serve Assets (middleware)
@@ -76,16 +77,13 @@ stackGulp.task('fonts', function() {
 //   console.log('importing: ' + appBuild.message);
 // }
 
-/* stackGulp Default Task */
-stackGulp.task('stack-default', ['js'], function(cb) {
-
+/* frontier stack gulp Default Task */
+gulp.task('devTime', ['js'], function(cb) {
+  console.log('inside stack dev');
 });
 
 
-module.exports = {
-  gulp: stackGulp
-}
-
+module.exports = gulp;
 
 
 
