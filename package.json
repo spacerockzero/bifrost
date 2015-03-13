@@ -9,10 +9,11 @@
   "author": "Jakob Anderson",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.2.4",
     "gulp": "^3.8.11",
-    "gulp-load-plugins": "^0.8.1",
+    "gulp-changed": "^1.2.1",
+    "gulp-imagemin": "^2.2.1",
     "gulp-uglifyjs": "^0.6.1",
-    "path": "^0.11.14",
-    "uglifyjs": "0.0.0"
+    "gulp-watch": "^4.1.1"
   }
 }
