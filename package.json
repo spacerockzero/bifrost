@@ -14,6 +14,11 @@
     "gulp-changed": "^1.2.1",
     "gulp-imagemin": "^2.2.1",
     "gulp-uglifyjs": "^0.6.1",
-    "gulp-watch": "^4.1.1"
+    "gulp-watch": "^4.1.1",
+    "require-dir": "^0.1.0"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "2.7.x"
   }
 }
