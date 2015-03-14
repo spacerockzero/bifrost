@@ -5,7 +5,7 @@ var requireDir = require('require-dir');
 requireDir('./gulpfile/tasks', { recurse: true });
 
 (function(){
-  gulp.start('watch');
+  // gulp.start('watch');
   console.log('inside devTime()');
 })();
 
