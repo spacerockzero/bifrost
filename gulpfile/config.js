@@ -49,13 +49,24 @@ module.exports = {
     injectChanges: true,
     open: false
   },
+  MODULES: {
+    SRC: DEVASSETS + '/js/modules/'
+  },
   BROWSERIFY: {
     bundleConfigs: [{
-      entries: DEVASSETS + '/js/**/',
-      dest: DISTASSETS + '/js',
-      outputName: '*'
+      entries: DEVASSETS + '/js/modules/sample/index.js',
+      dest: DISTASSETS + '/js/modules/',
+      outputName: 'sample.js'
       // transform: ['babelify'],
-      // require: ['lodash']
+      // external: ['lodash']
     }]
+    // modules: {
+    //   src: DEVASSETS + '/js/modules/**/',
+    //   dest: DISTASSETS + '/js/modules/'
+    // }
+  },
+  WEBPACK: {
+    SRC: DEVASSETS + '/js/**/',
+    DIST: DISTASSETS + '/js/webpack/'
   }
 };
