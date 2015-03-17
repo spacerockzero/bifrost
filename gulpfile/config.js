@@ -48,5 +48,14 @@ module.exports = {
     proxy: "localhost:5000",
     injectChanges: true,
     open: false
+  },
+  BROWSERIFY: {
+    bundleConfigs: [{
+      entries: DEVASSETS + '/js/**/',
+      dest: DISTASSETS + '/js',
+      outputName: '*'
+      // transform: ['babelify'],
+      // require: ['lodash']
+    }]
   }
 };
