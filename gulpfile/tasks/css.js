@@ -8,7 +8,7 @@ var handleErrors = require('../lib/handleErrors');
 var config       = require('../config').CSS;
 var autoprefixer = require('gulp-autoprefixer');
 
-console.log('css dist path',config.DIST);
+// console.log('css dist path',config.DIST);
 
 // run during devtime
 gulp.task('devtime_css', function () {

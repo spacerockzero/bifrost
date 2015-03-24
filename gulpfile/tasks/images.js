@@ -12,7 +12,7 @@ module.exports = (function(){
   var imgSrc = config.SRC + '/**/*';
   var imgDest = config.DIST;
 
-  console.log('IMG config', config);
+  // console.log('IMG config', config);
 
   gulp.task('images', function() {
     return gulp.src(imgSrc)
