@@ -54,15 +54,12 @@ module.exports = {
   },
   BROWSERIFY: {
     bundleConfigs: [{
-      entries: DEVASSETS + '/js/modules/sample/index.js',
-      dest: DISTASSETS + '/js/modules/',
-      outputName: 'sample.js'
-      // transform: ['babelify'],
-      // external: ['lodash']
+      entries: DEVASSETS + '/js/modules/browserify/',
+      dest: DISTASSETS + '/js/browserify/'
     }],
     modules: {
-      src: DEVASSETS + '/js/modules/**/',
-      dest: DISTASSETS + '/js/modules/'
+      src: DEVASSETS + '/js/modules/browserify/**/',
+      dest: DISTASSETS + '/js/browserify/'
     }
   },
   WEBPACK: {

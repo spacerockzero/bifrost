@@ -15,6 +15,11 @@ var handleErrors = require('../lib/handleErrors');
 var source       = require('vinyl-source-stream');
 var config       = require('../config').BROWSERIFY;
 var _            = require('lodash');
+var path         = require('path');
+var globby       = require('globby');
+
+var sourceModules = gulp.src(path.join(config.modules.src,'/**/index.js'));
+console.log('sourceModules',sourceModules);
 
 var browserifyTask = function(callback, watch) {
 
