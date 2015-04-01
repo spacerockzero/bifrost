@@ -59,7 +59,7 @@ module.exports = {
     }],
     modules: {
       src: DEVASSETS + '/js/modules/browserify/**/',
-      dest: DISTASSETS + '/js/browserify/'
+      dist: DISTASSETS + '/js/browserify/'
     }
   },
   WEBPACK: {

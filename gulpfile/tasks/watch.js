@@ -3,6 +3,10 @@ module.exports = (function(){
   var gulp   = require('gulp');
   var config = require('../config');
   var watch  = require('gulp-watch');
+  var path   = require('path');
+  var plumber = require('gulp-plumber');
+  
+  var browserifyPath = path.join(config.BROWSERIFY.modules.src,'*.*');
 
   // watch for changes on static assets
   gulp.task('watch',['watchify','browserSync'], function(callback) {
@@ -12,9 +16,14 @@ module.exports = (function(){
     // js: ES6, TypeScript transpilation
     // modules (assembly-style): transpile ES6, process down to 1 file, and serve live
     // modules (webpack or browserify): transpile ES6, process down to 1 file, and serve live
-    watch(config.BROWSERIFY.modules.SRC, function() { gulp.start('devtime_browserify'); });
+    console.log('browserify modules watch path',browserifyPath);
+    watch(browserifyPath), function(){
+      console.log('inside browserify watch');
+      gulp.start('devtime_browserify');
+    }
     // watch(config.WEBPACK.SRC, function() { gulp.start('devtime_webpack'); }); // webpack doesn't seem like a good chioce right now
     // webcomponents: process down to 1 file?
   });
+  
 
 })();

@@ -6,90 +6,50 @@
    See browserify.bundleConfigs in gulpfile.js/config.js
 */
 
-var browserify   = require('browserify');
-var browserSync  = require('browser-sync');
-var watchify     = require('watchify');
-var bundleLogger = require('../lib/bundleLogger');
-var gulp         = require('gulp');
-var handleErrors = require('../lib/handleErrors');
-var source       = require('vinyl-source-stream');
 var config       = require('../config').BROWSERIFY;
-var _            = require('lodash');
-var path         = require('path');
-var globby       = require('globby');
+var gulp = require('gulp');
+var through = require('through2');
+var browserify = require('browserify');
+var transform = require('vinyl-transform');
+var path = require('path');
+var rename = require('gulp-rename');
+var plumber = require('gulp-plumber');
 
-var sourceModules = gulp.src(path.join(config.modules.src,'/**/index.js'));
+
+var sourceModules = path.join(config.modules.src,'/**/index.js');
+var distModules = config.modules.dist;
+
 console.log('sourceModules',sourceModules);
+console.log('distModules',distModules);
 
-var browserifyTask = function(callback, watch) {
-
-  var bundleQueue = config.bundleConfigs.length;
-
-  var browserifyThis = function(bundleConfig) {
-
-    // Passing these options directly to Browserify has been
-    // unreliable, so we'll apply them manually through the API
-    var optionList = ['transform', 'plugin', 'require', 'external'];
-    var options = _.pick(bundleConfig, optionList);
-    var bundleConfig = _.omit(bundleConfig, optionList);
-
-    if(watch) {
-      // Add watchify args and debug (sourcemaps) option
-      _.extend(bundleConfig, watchify.args, { debug: true });
-    }
-
-    var b = browserify(bundleConfig);
-
-    // Apply additional browserify options (require, external, plugin, etc.)
-    for(var key in options) b[key](options[key]);
-
-    var bundle = function() {
-      // Log when bundling starts
-      bundleLogger.start(bundleConfig.outputName);
-
-      return b
-        .bundle()
-        // Report compile errors
-        .on('error', handleErrors)
-        // Use vinyl-source-stream to make the
-        // stream gulp compatible. Specify the
-        // desired output filename here.
-        .pipe(source(bundleConfig.outputName))
-        // Specify the output destination
-        .pipe(gulp.dest(bundleConfig.dest))
-        .on('end', reportFinished)
-        .pipe(browserSync.reload({stream:true}));
-    };
-
-    if(watch) {
-      // Wrap with watchify and rebundle on changes
-      b = watchify(b);
-      // Rebundle on update
-      b.on('update', bundle);
-      bundleLogger.watch(bundleConfig.outputName);
-    }
-
-    var reportFinished = function() {
-      // Log when bundling completes
-      bundleLogger.end(bundleConfig.outputName);
-
-      if(bundleQueue) {
-        bundleQueue--;
-        if(bundleQueue === 0) {
-          // If all bundleConfigs have been bundled, tell gulp the task is complete.
-          // https://github.com/gulpjs/gulp/blob/master/docs/API.md#accept-a-callback
-          callback();
-        }
+var browserifyTask = function() {
+  var browserified = function() {
+    return through.obj(function(chunk, enc, callback) {
+      if(chunk.isBuffer()) {
+        var b = browserify(chunk.path);
+        // Any custom browserify stuff should go here
+        b.transform('browserify-css');
+        chunk.contents = b.bundle();
+        this.push(chunk);
       }
-    };
-
-    return bundle();
+      callback();
+    });
   };
 
-  // Start bundling with Browserify for each bundleConfig listed
-  config.bundleConfigs.forEach(browserifyThis);
+  return gulp.src(sourceModules)
+    .pipe(plumber())
+    .pipe(browserified())
+    .pipe(rename(function(path){
+      // remove the dir wrapper from the output file
+      // console.log('path',path);
+      // console.log('newPath:',path.dirname + path.extname);
+      path.basename = path.dirname;
+      path.dirname = '';
+    }))
+    .pipe(gulp.dest(distModules));
 };
 
+// export this task, so watchify can call it during dev time
 gulp.task('devtime_browserify', browserifyTask);
 
 // Exporting the task so we can call it directly in our watch task, with the 'watch' option
