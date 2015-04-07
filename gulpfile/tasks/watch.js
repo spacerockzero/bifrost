@@ -17,10 +17,10 @@ module.exports = (function(){
     // modules (assembly-style): transpile ES6, process down to 1 file, and serve live
     // modules (webpack or browserify): transpile ES6, process down to 1 file, and serve live
     console.log('browserify modules watch path',browserifyPath);
-    watch(browserifyPath), function(){
+    watch(browserifyPath, function(){
       console.log('inside browserify watch');
-      gulp.start('devtime_browserify');
-    }
+      gulp.start('watchify');
+    });
     // watch(config.WEBPACK.SRC, function() { gulp.start('devtime_webpack'); }); // webpack doesn't seem like a good chioce right now
     // webcomponents: process down to 1 file?
   });

@@ -6,27 +6,31 @@
    See browserify.bundleConfigs in gulpfile.js/config.js
 */
 
-var config       = require('../config').BROWSERIFY;
+var config  = require('../config').BROWSERIFY;
 var gulp = require('gulp');
 var through = require('through2');
 var browserify = require('browserify');
+var browserSync  = require('browser-sync');
+var watchify = require('watchify');
 var transform = require('vinyl-transform');
 var path = require('path');
 var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
+var cache = require('gulp-cached');
 
 
 var sourceModules = path.join(config.modules.src,'/**/index.js');
 var distModules = config.modules.dist;
 
-console.log('sourceModules',sourceModules);
-console.log('distModules',distModules);
+// console.log('sourceModules',sourceModules);
+// console.log('distModules',distModules);
 
 var browserifyTask = function() {
   var browserified = function() {
     return through.obj(function(chunk, enc, callback) {
       if(chunk.isBuffer()) {
         var b = browserify(chunk.path);
+        // var b = watchify(chunk.path);
         // Any custom browserify stuff should go here
         b.transform('browserify-css');
         chunk.contents = b.bundle();
@@ -38,6 +42,7 @@ var browserifyTask = function() {
 
   return gulp.src(sourceModules)
     .pipe(plumber())
+    // .pipe(cache('browserify'))
     .pipe(browserified())
     .pipe(rename(function(path){
       // remove the dir wrapper from the output file
@@ -46,7 +51,10 @@ var browserifyTask = function() {
       path.basename = path.dirname;
       path.dirname = '';
     }))
-    .pipe(gulp.dest(distModules));
+    .pipe(gulp.dest(distModules))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 };
 
 // export this task, so watchify can call it during dev time

@@ -44,8 +44,8 @@ module.exports = {
   },
   BROWSERSYNC: {
     files: [ DISTASSETS + '**/*.*' ],
-    port: "5001",
-    proxy: "localhost:5000",
+    port: "3001",
+    proxy: "localhost:3000",
     injectChanges: true,
     open: false
   },
