@@ -12,11 +12,12 @@ var gulp = require('gulp');
 // TBD: modules (webpack) (auto-detect config?)
 // webcomponents
 
+// gulp run-sequence needed here?
 gulp.task('precompileAssets',
   [
     'clean',
     'css',
-    // 'img',
+    'img',
     // 'js',
     // 'fonts',
     // 'assemblies',

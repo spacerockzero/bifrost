@@ -33,7 +33,7 @@ module.exports = {
   IMG: {                                                   // image files (svg, jpg, png, gif, webp)
     SRC: path.join(DEVASSETS, 'img'),
     DIST: path.join(DISTASSETS, 'img'),
-    EXT: ['gif','png','jpg','jpeg','webp','svg']
+    EXT: ['gif','GIF','png','PNG','jpg','JPG','jpeg','JPEG','webp','WEBP','svg','SVG']
   },
   WEBCOMPONENTS: {                                         // webcomponent dirs, ready to be optimized
     SRC: path.join(DEVASSETS, 'webcomponents')
