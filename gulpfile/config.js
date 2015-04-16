@@ -20,7 +20,7 @@ module.exports = {
   DISTASSETS: DISTASSETS,                                  // dist dir where optimized files go to be served
   JS: {
     SRC: path.join(DEVASSETS, 'js'),                       // js and assemblies dir
-    EXT: ['js','ts'],
+    EXT: ['js'],
     DIST: path.join(DISTASSETS, 'js')
   },
   CSS: {                                                   // css, styl, and less files (not used in modules or components)

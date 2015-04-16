@@ -85,8 +85,9 @@ module.exports = (function(){
   
   // map exts into the minimatch format
   config.EXT.map(function(ext,index,arr){
+    exts += ext;
     if(index !== arr.length-1){
-      exts += ext+'|';
+      exts += '|';
     }
   });
 
@@ -134,9 +135,9 @@ module.exports = (function(){
     // start with all files
     return gulp.src( imgSrc, { matchBase: true } )
       // if files have "-raw" in filename, optimize them
-      .pipe( gulpif(isRaw,imagemin(minConfig)) )
+      .pipe( gulpif( isRaw, imagemin(minConfig) ) )
       // change raw filenames to show they've been optimized
-      .pipe( gulpif( isRaw,rename(function(path){
+      .pipe( gulpif( isRaw, rename(function(path){
         path.basename = path.basename.replace(patternRaw,'-opt');
       })))
       .pipe( map(log) ) // log files going to dist

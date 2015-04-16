@@ -18,7 +18,7 @@ gulp.task('precompileAssets',
     'clean',
     'css',
     'img',
-    // 'js',
+    'js',
     // 'fonts',
     // 'assemblies',
     // 'webcomponents'
