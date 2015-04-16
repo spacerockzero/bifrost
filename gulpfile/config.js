@@ -12,12 +12,14 @@ console.log('ROOTDIR',ROOTDIR);
 var ASSETDIR = path.join(ROOTDIR, 'public');
 var DEVASSETS = path.join(ASSETDIR, 'dev');
 var DISTASSETS = path.join(ASSETDIR, 'dist');
+var CDNASSETS = path.join(ASSETDIR, 'cdn');
 
 module.exports = {
   ROOT: ROOTDIR,                                           // app root dir
   ASSETS: ASSETDIR,
   DEVASSETS: DEVASSETS,                                    // dev assets root dir
-  DISTASSETS: DISTASSETS,                                  // dist dir where optimized files go to be served
+  DISTASSETS: DISTASSETS,
+  CDNASSETS: CDNASSETS,                                    // dist dir where optimized files go to be served
   JS: {
     SRC: path.join(DEVASSETS, 'js'),                       // js and assemblies dir
     EXT: ['js'],
