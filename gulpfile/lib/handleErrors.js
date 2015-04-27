@@ -6,10 +6,12 @@ module.exports = function() {
 
   // Send error to notification center with gulp-notify
   notify.onError({
-    title: "Compile Error",
+    title: "[FAILURE] - Compile Error",
     message: "<%= error %>"
   }).apply(this, args);
 
   // Keep gulp from hanging on this task
-  this.emit('end');
+  // this.emit('end');
+  // or kill process to exit fast
+  process.exit(1);
 };
