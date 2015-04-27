@@ -10,7 +10,7 @@ var gulp         = require('gulp'),
     gulpif       = require('gulp-if'),
     uglify       = require('gulp-uglifyjs'),
     rename       = require('gulp-rename'),
-    plumber      = require('gulp-plumber'),
+    // plumber      = require('gulp-plumber'),
     jshint       = require('gulp-jshint'),
     stylish      = require('jshint-stylish');
 
@@ -59,13 +59,13 @@ gulp.task('typescript', ['clean'], function(){
 // JS processing
 gulp.task('js', ['clean','typescript'], function(){
   return gulp.src(jsSrc)
-    .pipe(plumber, {
-      errorHandler: handleErrors
-    })
+    // .pipe(plumber, {
+    //   errorHandler: handleErrors
+    // })
     
-    .pipe(jshint)
-    .pipe(jshint.reporter, stylish)
-    .pipe(jshint.reporter, 'fail')
+    // .pipe(jshint)
+    // .pipe(jshint.reporter, stylish)
+    // .pipe(jshint.reporter, 'fail')
     
     .pipe(sourcemaps.init())
     .on('error', handleErrors)
