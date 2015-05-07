@@ -18,30 +18,30 @@ var gulp         = require('gulp'),
 var src = config.CDNASSETS + '/**';
 // console.log('src',src);
 
-// option 1: (gulp-s3)
-gulp.task('upload', ['precompile','manifest'], function(){
-  var aws = {}
-  aws.key = process.env.S3_KEY;
-  aws.secret = process.env.S3_SECRET;
-  aws.bucket = process.env.S3_BUCKET;
-  //aws.region = process.env.S3_REGION;
-  console.log('aws',aws);
-  
-  var options = {
-    headers: {'Cache-Control': 'max-age=315360000, public'}
-  };
-  
-  gutil.log(gutil.colors.blue('Uploading assets with gulp-s3...'));
-  gulp.src(src)
-    .pipe(s3(aws, options))
-    .on('error', handleErrors);
-});
+// // option 1: (gulp-s3)
+// gulp.task('upload', ['precompile','manifest'], function(){
+//   var aws = {}
+//   aws.key = process.env.S3_KEY;
+//   aws.secret = process.env.S3_SECRET;
+//   aws.bucket = process.env.S3_BUCKET;
+//   //aws.region = process.env.S3_REGION;
+//   console.log('aws',aws);
+//   
+//   var options = {
+//     headers: {'Cache-Control': 'max-age=315360000, public'}
+//   };
+//   
+//   gutil.log(gutil.colors.blue('Uploading assets with gulp-s3...'));
+//   gulp.src(src)
+//     .pipe(s3(aws, options))
+//     .on('error', handleErrors);
+// });
 
 
 
 
 //option 2 (gulp-awspublish)
-gulp.task('awspublish', ['precompile','manifest'], function(){
+gulp.task('upload', ['precompile','manifest'], function(){
 // gulp.task('awspublish', function(){
   var doZip = function(file) {
     // console.log('doZip - file:',file);
